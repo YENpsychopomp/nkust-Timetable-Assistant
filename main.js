@@ -28,7 +28,7 @@ function createWindow() {
 
 	mainWindow.maximize(); // 或改成 fullscreen: true 看需求
 	mainWindow.loadFile("index.html");
-
+	mainWindow.setMenu(null);
 	// mainWindow.webContents.openDevTools(); // 若不需要可註解
 }
 
