@@ -48,7 +48,9 @@
 ## 常見問題
 
 ### Q: 如何匯入課程資料？
-A: 請將學校提供的 `init_class.csv` 和 `all_class.csv` 放在專案執行目錄下，或依照首次啟動的提示完成設定。
+A: 到校務系統查詢自己的初始課表和自己系所年級的開課資訊，並將結果複製到 `init_class.csv` 和 `all_class.csv` 放在 C:\Users\{使用者名稱}\AppData\Roaming\schedule-app，欄位名稱為 選課代號	上課校區	部別	"科系											"	班級	合班班級	永久課號	科目名稱	學分	授課時數	實習時數	必/選	授課教師	教室	修課人數	人數上限	上課時間	全英語授課	遠距教學	"備註	"
+![image](https://github.com/user-attachments/assets/c20966a8-113c-4a87-8605-0c793975018b)
+。
 
 ### Q: 遇到軟體無法啟動怎麼辦？
 A: 請確認電腦已安裝相容的 Windows 環境，並允許防毒軟體執行本程式。
@@ -69,7 +71,7 @@ A: 請確認電腦已安裝相容的 Windows 環境，並允許防毒軟體執�
 
 ## 聯絡方式
 
-若有問題或建議，歡迎在 GitHub Issue 提出，或透過 Email 聯絡開發團隊。
+若有問題或建議，歡迎在 GitHub Issue 提出。
 
 ---
 
