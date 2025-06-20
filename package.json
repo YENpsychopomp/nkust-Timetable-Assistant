@@ -1,0 +1,44 @@
+{
+  "devDependencies": {
+    "electron": "^36.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "name": "schedule-app",
+  "version": "1.0.0",
+  "description": "高科課表輔助工具",
+  "author": "chichi",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --dir && electron-builder",
+    "pack-dist": "electron-builder"
+  },
+  "main": "main.js",
+  "dependencies": {
+    "electron-store": "^10.1.0",
+    "jquery": "^3.7.1",
+    "papaparse": "^5.5.3"
+  },
+  "build": {
+    "appId": "com.example.courseapp",
+    "productName": "courseapp",
+    "directories": {
+      "output": "pack"
+    },
+    "files": [
+      "**/*",
+      "!.vscode",
+      "build/"
+    ],
+    "asar": false,
+    "win": {
+      "icon": "assets/icon.png",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "runAfterFinish": false
+    }
+  }
+}

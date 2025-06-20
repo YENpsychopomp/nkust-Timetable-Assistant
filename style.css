@@ -1,0 +1,145 @@
+/* 全域樣式 */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 40px;
+    user-select: none;
+}
+
+/* 課表格子區 */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr);
+    grid-template-rows: 50px repeat(12, 80px);
+    /* ✅ 將每列高度加大 */
+    width: 700px;
+    /* ✅ 減少寬度，格子變窄 */
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 0 auto;
+    flex: 1.5;
+    /* 左側占3份 */
+    overflow: auto;
+    margin-right: 20px;
+}
+
+.container {
+    flex: 2.5;
+    max-height: 1010px;
+    display: flex;
+    height: 100vh;
+    gap: 16px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.course-list {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f8f8f8;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    box-sizing: border-box;
+    border-left: 1px solid #ccc;
+    margin-left: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+}
+
+.button-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    width: 75%;
+}
+
+.button-panel button {
+    padding: 15px 6px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #548086;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(63, 134, 255, 0.2);
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* hover 效果也一致 */
+.button-panel button:hover{
+    box-shadow: 0 6px 12px rgba(30, 93, 204, 0.25);
+    transform: scale(1.05);
+}
+
+/* 每格樣式 */
+.cell {
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+/* 標題樣式 */
+.header {
+    background: #f0f4f8;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+/* 點擊後可加上 highlight 效果 */
+.cell.selected {
+    background-color: #c8e1ff;
+}
+
+.course-block {
+    cursor: pointer;
+    user-select: none;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+.course-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.course-block.unselectable {
+    background-color: #ccc !important;
+    color: #666 !important;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.hidden-cell {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .schedule-grid {
+        width: 100%;
+        grid-template-rows: 50px repeat(12, 70px);
+        /* 改小一點避免超出畫面 */
+    }
+}
