@@ -1,3 +1,19 @@
+/**
+ * ===== 開發者備註區 =====
+ *
+ * 這裡是給開發者的備註或留言區，可以用來記錄 TODO、BUG、設計說明等。
+ *
+ * - 若要調整課表顏色，請修改 pastelColors 陣列。
+ * - 課表時間格式請參考 parseCompactTimeSlot 的說明。
+ * - 若需擴充支援更多天或節次，請同步調整 days、periods、periodsTime 等常數。
+ * - 若有任何疑問或建議，請於此區留言。
+ *
+ * 目前已知技術債:
+ * addedCourses 儲存的是 coursesCode 但前面操作時變數是 coursesName
+ * 右方同時存在#coursesCode與data-course-id               
+ * ======================
+ */
+
 // ===== 常數區 =====
 const days = ["週一", "週二", "週三", "週四", "週五"];
 const periods = ["M", "1", "2", "3", "4", "A", "5", "6", "7", "8", "9", "10"];
@@ -347,6 +363,7 @@ async function loadAllClass() {
         courseDiv.style.alignItems = "center";
         courseDiv.style.textAlign = "center";
         courseDiv.style.height = `${duration * 80}px`;
+        courseDiv.dataset.courseId = (course["選課代號"] || "").trim();
         courseDiv.innerHTML = `
           <div><strong>${(course["科目名稱"] || "").trim()}</strong></div>
           <div>${(course["授課教師"] || "").trim()}</div>
@@ -367,6 +384,7 @@ async function loadAllClass() {
 function updateCourseSelectable(obj) {
     const occupiedSlots = new Set();
 
+    // 將以加入至左邊課表的時間段儲存至 occupiedSlots
     document.querySelectorAll(".schedule-grid .cell.cell-block .time-slot")
         .forEach((slotEl) => {
             const rawTime = slotEl.textContent.trim();
@@ -379,9 +397,16 @@ function updateCourseSelectable(obj) {
         const rawTime =
             block.querySelector(".time-slot")?.textContent?.trim() || "";
         const slots = parseCompactTimeSlot(rawTime);
+        const courseId = $(block).attr("data-course-id");
+        
+        // const courseName = $(this).attr("data-course-id");
         const hasConflict = slots.some((slot) => occupiedSlots.has(slot));
 
-        if (hasConflict) {
+        const isAlreadyAdded = addedCourses.has(courseId); // ✅ 課程是否已加入課表
+        
+        
+        // 若衝堂但這門課是自己加的，則保持可點擊
+        if (hasConflict && !isAlreadyAdded) {
             block.style.opacity = "0.4";
             block.style.pointerEvents = "none";
         } else {
@@ -405,7 +430,7 @@ function updateCourseSelectable(obj) {
 }
 
 $("#course-list").on("click", ".list-block", function (e) {
-    const courseName = $(this).find("#course-code").text().trim();
+    const courseName = $(this).attr("data-course-id");
 
     if (addedCourses.has(courseName)) {
         if (confirm("你已選過此課程！是否要取消選擇？")) {
@@ -413,7 +438,8 @@ $("#course-list").on("click", ".list-block", function (e) {
             addedCourses.delete(courseName);
             removeTimeFromSet($(this).find(".time-slot").text().trim());
             console.log(coursesTime);
-
+            console.log(addedCourses);
+            
             // 從課表移除該課程
             const timeText = $(this).find(".time-slot").text().trim();
             const timeSlots = parseCompactTimeSlot(timeText);
@@ -452,7 +478,6 @@ $("#course-list").on("click", ".list-block", function (e) {
                 pointerEvents: "none",
                 opacity: "1",
             });
-            console.log(block);
 
             block.removeClass("list-block").addClass("cell-block-inner");
             cell.append(block);
@@ -465,8 +490,7 @@ $("#course-list").on("click", ".list-block", function (e) {
 });
 
 function handleCourseSelection($block) {
-    const courseName = $block.find("#course-code").text().trim();
-
+    const courseName = $block.attr("data-course-id");
     const timeText = $block.find(".time-slot").text().trim(); // e.g. (四)2-4
     const match = timeText.match(/\((.)\)(\d+)-(\d+)/);
 
