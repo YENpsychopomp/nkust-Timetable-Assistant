@@ -77,7 +77,7 @@ A: 請確認電腦已安裝相容的 Windows 環境，並允許防毒軟體執�
 This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license.  
 You are free to use, copy, and modify the code for **non-commercial purposes only**.
 
-For commercial licensing, please contact: you@example.com
+For commercial licensing, please contact: 
 
 ---
 
