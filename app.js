@@ -8,7 +8,7 @@
  * - 若需擴充支援更多天或節次，請同步調整 days、periods、periodsTime 等常數。
  * - 若有任何疑問或建議，請於此區留言。
  *
- * 目前已知技術債:
+ * 目前已知問題:
  * addedCourses 儲存的是 coursesCode 但前面操作時變數是 coursesName
  * 右方同時存在#coursesCode與data-course-id               
  * ======================
