@@ -84,8 +84,3 @@ For commercial licensing, please contact:
 ## 聯絡方式
 
 若有問題或建議，歡迎在 GitHub Issue 提出。
-
----
-
-感謝您的支持！  
-- 「課表助手」開發者
