@@ -1,6 +1,11 @@
 /* 全域樣式 */
-body {
+html, body {
+    height: 100%;
     margin: 0;
+    padding: 0;
+}
+
+body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #f5f7fa;
     display: flex;
@@ -14,21 +19,16 @@ body {
 .schedule-grid {
     display: grid;
     grid-template-columns: 100px repeat(5, 1fr);
-    grid-template-rows: 50px repeat(12, 80px);
-    /* ✅ 將每列高度加大 */
+    grid-template-rows: 50px repeat(12, 1fr);
+    height: calc(100vh - 40px);
     width: 700px;
-    /* ✅ 減少寬度，格子變窄 */
     max-width: 100%;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     background-color: #fff;
     border: 1px solid #ddd;
-    margin: 0 auto;
-    flex: 1.5;
-    /* 左側占3份 */
-    overflow: auto;
     margin-right: 20px;
+    flex: 1.5;
 }
 
 .container {
