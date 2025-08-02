@@ -73,7 +73,7 @@ body {
 	background-color: var(--white);
 	border: 1px solid var(--border-color);
 	margin-right: 20px;
-	flex: 2.5;
+	flex: 1.5;
 }
 
 .container {
@@ -371,4 +371,5 @@ body {
 		width: 100%;
 		grid-template-rows: 50px repeat(12, 70px);
 	}
+
 }
