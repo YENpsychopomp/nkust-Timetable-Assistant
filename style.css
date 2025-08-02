@@ -1,145 +1,374 @@
-/* 全域樣式 */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+:root {
+	--main-bg-color: #f5f7fa;
+	--white: #fff;
+	--light-bg: #f0f4f8;
+	--border-color: #ddd;
+	--shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+	--header-color: #333;
+	--primary: #007bff;
+	--button-bg: #548086;
+	--button-hover-shadow: 0 6px 12px rgba(30, 93, 204, 0.25);
+	--button-shadow: 0 4px 8px rgba(63, 134, 255, 0.2);
+	--button-color: #fff;
+	--cell-selected-bg: #c8e1ff;
+	--unselectable-bg: #ccc;
+	--unselectable-color: #666;
+	--setting-bg: #ffffff;
+	--setting-hover-bg: #e0f0ff;
+	--setting-hover-color: #007bff;
+	--setting-page-bg: #fdfdfd;
+	--setting-page-title: #333;
+	--setting-group-btn-bg: #e0e0e0;
+	--setting-group-btn-hover-bg: #3c715a;
+	--setting-group-btn-hover-color: #fff;
+	--setting-info-color: #999;
+	--switch-bg: #e0e0e0;
+	--switch-hover-bg: #303231;
+	--switch-hover-color: #fff;
+	--slider-bg: #ccc;
+	--slider-checked-bg: #007bff;
+	--slider-ball-bg: #fff;
+	--course-list-bg: #f8f8f8;
+	--course-list-scrollbar-thumb: #bbb;
+	--course-list-scrollbar-thumb-hover: #999;
+	--course-list-scrollbar-track: #f3f3f3;
+	--course-list-border: #ccc;
+	--hidden-cell-display: none !important;
+
+	--font-main: "Segoe UI", sans-serif;
+	--font-size-main: 14px;
+	--font-size-header: 18px;
+	--font-size-setting-info: 12px;
+	--font-size-setting-group-btn: 13px;
+	--font-size-switch: 13px;
+	--font-size-button: 14px;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f5f7fa;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px 40px; /* 如果要改這裡的上下 padding 要記得改 schedule-grid 的 hight 方式為 height: calc(100vh - {(top bottom padding value) * 2}px); */
-    user-select: none;
+	font-family: var(--font-main);
+	background-color: var(--main-bg-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 40px;
+	user-select: none;
 }
 
-/* 課表格子區 */
 .schedule-grid {
-    display: grid;
-    grid-template-columns: 100px repeat(5, 1fr);
-    grid-template-rows: 50px repeat(12, 1fr);
-    height: calc(100vh - 40px); /* 如果要改 body 的 padding 這裡要記得改 */
-    width: 700px;
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-right: 20px;
-    flex: 1.5;
+	display: grid;
+	grid-template-columns: 100px repeat(5, 1fr);
+	grid-template-rows: 50px repeat(12, 1fr);
+	height: calc(100vh - 40px);
+	width: 700px;
+	max-width: 100%;
+	border-radius: 12px;
+	box-shadow: var(--shadow);
+	background-color: var(--white);
+	border: 1px solid var(--border-color);
+	margin-right: 20px;
+	flex: 2.5;
 }
 
 .container {
-    flex: 2.5;
-    max-height: 1010px;
-    display: flex;
-    height: 100vh;
-    gap: 16px;
-    padding: 0 16px;
-    box-sizing: border-box;
+	flex: 2.5;
+	height: calc(100vh - 40px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 0 16px;
+	box-sizing: border-box;
+}
+
+.tips-page {
+	position: absolute;
+	z-index: 9999;
+	background-color: #fefefe;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 8px 12px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	pointer-events: none;
+	display: none;
+	font-size: var(--font-size-main);
+	white-space: nowrap;
+}
+
+.container .setting {
+	background-color: var(--setting-bg);
+	color: var(--header-color);
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: fixed;
+	bottom: 5px;
+	right: 10px;
+	z-index: 1000;
+}
+
+.container .setting:hover {
+	background-color: var(--setting-hover-bg);
+	color: var(--setting-hover-color);
+	transform: rotate(90deg) scale(1.1);
 }
 
 .course-list {
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    background-color: #f8f8f8;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 12px;
-    box-sizing: border-box;
-    border-left: 1px solid #ccc;
-    margin-left: 20px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    padding: 12px;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	background-color: var(--course-list-bg);
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 12px;
+	box-sizing: border-box;
+	border-left: 1px solid var(--course-list-border);
+	margin-left: 20px;
+	border: 1px solid var(--border-color);
+	border-radius: 12px;
+	box-shadow: var(--shadow);
+	padding: 12px;
+	scrollbar-width: thin;
+	scrollbar-color: var(--course-list-scrollbar-thumb) var(--course-list-scrollbar-track);
+}
+
+.course-list::-webkit-scrollbar {
+	width: 8px;
+}
+
+.course-list::-webkit-scrollbar-track {
+	background: var(--course-list-scrollbar-track);
+	border-radius: 4px;
+}
+
+.course-list::-webkit-scrollbar-thumb {
+	background-color: var(--course-list-scrollbar-thumb);
+	border-radius: 4px;
+	border: 2px solid transparent;
+	background-clip: content-box;
+}
+
+.course-list::-webkit-scrollbar-thumb:hover {
+	background-color: var(--course-list-scrollbar-thumb-hover);
+}
+
+.course-list:focus-visible {
+	outline: none !important;
 }
 
 .button-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    width: 75%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 12px;
+	width: 75%;
 }
 
 .button-panel button {
-    padding: 15px 6px;
-    font-size: 14px;
-    font-weight: 600;
-    background: #548086;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(63, 134, 255, 0.2);
-    transition: all 0.2s ease;
-    letter-spacing: 0.5px;
-    text-align: center;
+	padding: 15px 6px;
+	font-size: var(--font-size-button);
+	font-weight: 600;
+	background: var(--button-bg);
+	color: var(--button-color);
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: var(--button-shadow);
+	transition: all 0.2s ease;
+	letter-spacing: 0.5px;
+	text-align: center;
 }
 
-/* hover 效果也一致 */
-.button-panel button:hover{
-    box-shadow: 0 6px 12px rgba(30, 93, 204, 0.25);
-    transform: scale(1.05);
+.button-panel button:hover {
+	box-shadow: var(--button-hover-shadow);
+	transform: scale(1.05);
 }
 
-/* 每格樣式 */
 .cell {
-    border: 1px solid #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
+	border: 1px solid #e0e0e0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	font-size: var(--font-size-main);
+	transition: background-color 0.2s ease;
 }
 
-/* 標題樣式 */
 .header {
-    background: #f0f4f8;
-    font-weight: 600;
-    color: #333;
-    text-align: center;
+	background: var(--light-bg);
+	font-weight: 600;
+	color: var(--header-color);
+	text-align: center;
 }
 
-/* 點擊後可加上 highlight 效果 */
 .cell.selected {
-    background-color: #c8e1ff;
+	background-color: var(--cell-selected-bg);
 }
 
 .course-block {
-    cursor: pointer;
-    user-select: none;
-    box-sizing: border-box;
-    transition: transform 0.2s ease;
+	cursor: pointer;
+	user-select: none;
+	box-sizing: border-box;
+	transition: transform 0.2s ease;
 }
 
 .course-block:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+	transform: scale(1.05);
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .course-block.unselectable {
-    background-color: #ccc !important;
-    color: #666 !important;
-    opacity: 0.6;
-    cursor: not-allowed;
+	background-color: var(--unselectable-bg) !important;
+	color: var(--unselectable-color) !important;
+	opacity: 0.6;
+	cursor: not-allowed;
 }
 
 .hidden-cell {
-    display: none !important;
+	display: var(--hidden-cell-display);
+}
+
+.setting-page {
+	position: fixed;
+	bottom: 60px;
+	right: 20px;
+	width: 360px;
+	max-height: 80vh;
+	background: var(--setting-page-bg);
+	border-radius: 16px;
+	padding: 16px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	z-index: 999;
+	overflow-y: auto;
+	opacity: 0;
+	transform: translateY(-10px);
+	pointer-events: none;
+	transition: all 0.3s ease;
+	font-family: var(--font-main);
+}
+
+.setting-page.active {
+	opacity: 1;
+	transform: translateY(0);
+	pointer-events: auto;
+}
+
+.setting-page h2 {
+	font-size: var(--font-size-header);
+	margin-bottom: 12px;
+	color: var(--setting-page-title);
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 6px;
+}
+
+.setting-group {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.setting-group button {
+	font-size: var(--font-size-setting-group-btn);
+	padding: 6px 10px;
+	background: var(--setting-group-btn-bg);
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	color: var(--header-color);
+	transition: 0.3s;
+}
+
+.setting-group button:hover {
+	background: var(--setting-group-btn-hover-bg);
+	color: var(--setting-group-btn-hover-color);
+}
+
+.setting-info {
+	font-size: var(--font-size-setting-info);
+	text-align: right;
+	color: var(--setting-info-color);
+	margin-top: 12px;
+	border-top: 1px solid #eee;
+	padding-top: 6px;
+}
+
+.switch {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+	gap: 8px;
+	padding: 6px 10px;
+	background: var(--switch-bg);
+	border-radius: 8px;
+	font-size: var(--font-size-switch);
+	color: var(--header-color);
+	transition: background 0.3s ease;
+}
+
+.switch:hover {
+	background: var(--switch-hover-bg);
+	color: var(--switch-hover-color);
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+	position: absolute;
+}
+
+.slider {
+	position: relative;
+	width: 40px;
+	height: 20px;
+	background-color: var(--slider-bg);
+	border-radius: 20px;
+	transition: 0.4s;
+	flex-shrink: 0;
+}
+
+.slider::before {
+	content: "";
+	position: absolute;
+	height: 16px;
+	width: 16px;
+	left: 2px;
+	top: 2px;
+	background-color: var(--slider-ball-bg);
+	border-radius: 50%;
+	transition: 0.4s;
+}
+
+.switch input:checked+.slider {
+	background-color: var(--slider-checked-bg);
+}
+
+.switch input:checked+.slider::before {
+	transform: translateX(20px);
+}
+
+.switch input:checked~.label-text {
+	color: var(--switch-hover-color);
 }
 
 @media (max-width: 768px) {
-    .schedule-grid {
-        width: 100%;
-        grid-template-rows: 50px repeat(12, 70px);
-        /* 改小一點避免超出畫面 */
-    }
+	.schedule-grid {
+		width: 100%;
+		grid-template-rows: 50px repeat(12, 70px);
+	}
 }

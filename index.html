@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>排課輔助系統</title>
-        <link rel="stylesheet" href="style.css">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap"
-            rel="stylesheet">
-    </head>
-    <body>
-        <div class="schedule-grid" id="schedule-grid"></div>
-        <div class="container">
-            <div class="course-list" id="course-list">
-                <div class="button-panel">
-                    <button id="edit-init-btn">編輯初始課表</button>
-                    <button id="edit-all-btn">編輯可選課程</button>
-                </div>
-            </div>
 
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script type="text/javascript"
-            src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="app.js"></script>
-    </body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>排課輔助系統</title>
+	<link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<div class="tips-page" id="tips-page"></div>
+	<div class="schedule-grid" id="schedule-grid"></div>
+	<div class="container">
+		<div class="course-list" id="course-list">
+			<div id="setting" class="setting">
+				<i class="fas fa-cog"></i>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="setting-page" id="settingPage">
+		<h2>設定</h2>
+		<div class="setting-group">
+			<button id="editInitCSV">初始課表</button>
+			<button id="editAllCSV">所有課程</button>
+			<button id="resetCSV">匯入預設</button>
+			<button id="checkCSV">檢查資料</button>
+
+			<!-- 深色模式開關 -->
+			<label class="switch">
+				<input type="checkbox" id="toggleDark" />
+				<span class="slider"></span>
+				<span class="label-text">深色模式</span>
+			</label>
+
+			<button id="devMode">開發模式</button>
+		</div>
+		<div class="setting-info">
+			<p>v1.0.0 by chichi</p>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../src/renderer/app.js"></script>
+</body>
+
 </html>

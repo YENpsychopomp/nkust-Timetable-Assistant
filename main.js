@@ -1,9 +1,11 @@
 const { app, BrowserWindow, ipcMain, shell } = require("electron");
 const path = require("path");
-const { loadInitClassCSV, loadAllClassCSV } = require("./dataLoader");
+const { loadInitClassCSV, loadAllClassCSV } = require("./utils/dataLoader.js");
 const fs = require("fs");
 const Papa = require("papaparse");
 
+let mainWindow;
+let devmode = true; // 是否開啟開發者模式
 // 🔽 使用者要編輯 csv 時自動打開對應路徑
 ipcMain.handle("open-file", (event, filename) => {
 	const filePath = path.join(app.getPath("userData"), filename);
@@ -17,7 +19,7 @@ ipcMain.handle("open-file", (event, filename) => {
 });
 
 function createWindow() {
-	const mainWindow = new BrowserWindow({
+	mainWindow = new BrowserWindow({
 		width: 1920,
 		height: 1080,
 		webPreferences: {
@@ -25,15 +27,20 @@ function createWindow() {
 			contextIsolation: false,
 		},
 	});
-
+	mainWindow.webContents.on("before-input-event", (event, input) => {
+		if (input.key === "F12" && input.type === "keyDown") {
+			mainWindow.webContents.openDevTools({ mode: "detach" });
+		}
+	});
 	mainWindow.maximize(); // 或改成 fullscreen: true 看需求
-	mainWindow.loadFile("index.html");
+	mainWindow.loadFile(path.join(__dirname, "..", "public", "index.html"));
 	mainWindow.setMenu(null);
-	// mainWindow.webContents.openDevTools(); // 若不需要可註解
+	mainWindow.webContents.openDevTools(); // 若不需要可註解
 }
 
 // 註冊 IPC handler，前端用這兩個 key 取得不同 CSV 資料
 ipcMain.handle("get-init-class", () => {
+	console.log("載入 init_class.csv");
 	return loadInitClassCSV();
 });
 
@@ -68,7 +75,8 @@ ipcMain.handle("check-csv-status", async () => {
 		missing = true;
 	} else {
 		const content = fs.readFileSync(allPath, "utf8");
-		const cleanContent = content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
+		const cleanContent =
+			content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
 		const parsed = Papa.parse(cleanContent, {
 			header: true,
 			skipEmptyLines: true,
